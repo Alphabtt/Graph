@@ -94,6 +94,7 @@ using namespace std;
 
         vector<int> vis(V, 0);
         int sum = 0;
+        vector<int>parent(V,-1);
 
         pq.push({0, 0});
 
@@ -117,9 +118,27 @@ using namespace std;
 
                 if (!vis[adjNode]) {
                     pq.push({adjWt, adjNode});
+                    parent[adjNode]=node;
                 }
             }
         }
+
+       cout<<"Printing the MST"<<endl;
+
+       for(int i=1; i<=V-1;i++)
+       {
+        cout<<parent[i]<<"->"<<i<<" Weight:";
+       
+       for(auto it: adj[i])
+       {
+            if(it[0]==parent[i])
+            {
+                cout<<it[1];
+                break;
+            }    
+       }
+       cout<<endl;
+    }
 
         return sum;
     }
@@ -145,11 +164,12 @@ int main() {
         }
 
         
-        cout << spanningTree(V, adj) << "\n";
+        cout <<"total weight of MST"<< spanningTree(V, adj) << "\n";
     }
 
     return 0;
 }
+
 
 
 
